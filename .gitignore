@@ -1,0 +1,33 @@
+# CUDA / nvcc build artifacts
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+*.ptx
+*.cubin
+
+*.fatbin
+*.linkinfo
+
+# Common build directories
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+compile_commands.json
+
+# Local test binaries
+/test
+/Vector Addition/test
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
