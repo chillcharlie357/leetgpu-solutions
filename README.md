@@ -119,6 +119,113 @@ Performance: 85.6 TFLOPS
 
 ---
 
+## LeetGPU CLI 使用指南
+
+> 官方文档：[LeetGPU CLI](https://leetgpu.com/cli)
+
+LeetGPU CLI 允许从本地环境直接运行 CUDA 内核，无需本地 GPU。代码在远程 GPU 上执行。
+
+### 安装
+
+#### Linux & macOS
+
+```bash
+curl -fsSL https://cli.leetgpu.com/install.sh | bash
+```
+
+#### Windows (PowerShell)
+
+```powershell
+Invoke-WebRequest -Uri https://cli.leetgpu.com/install.ps1 -OutFile install.ps1
+./install.ps1
+```
+
+### 命令概览
+
+#### 主要命令
+
+| 命令 | 功能 |
+|------|------|
+| `leetgpu run FILE.cu` | 在远程 GPU 上执行 CUDA 代码 |
+| `leetgpu cuda-version` | 显示指定模式的 CUDA 版本 |
+| `leetgpu list-gpus` | 显示可用的 GPU 型号 |
+| `leetgpu upgrade` | 升级 CLI 到最新版本 |
+
+#### 工具命令
+
+| 命令 | 功能 |
+|------|------|
+| `leetgpu --version` | 显示 CLI 版本 |
+| `leetgpu --help` | 显示帮助信息 |
+
+### 运行选项
+
+| 选项 | 简写 | 说明 |
+|------|------|------|
+| `--mode` | `-m` | 模拟模式：`functional` 或 `cycle-accurate` |
+| `--gpu` | `-g` | GPU 型号（cycle-accurate 模式必需） |
+
+### 使用示例
+
+#### 基本用法
+
+```bash
+# 功能模式运行（默认）
+leetgpu run kernel.cu
+```
+
+#### 功能模式
+
+```bash
+# 显式指定功能模式
+leetgpu run kernel.cu --mode functional
+```
+
+#### 周期精确模式
+
+```bash
+# 在特定 GPU 上以周期精确模式运行
+leetgpu run kernel.cu --mode cycle-accurate --gpu NVIDIA GV100
+```
+
+#### 检查 CUDA 版本
+
+```bash
+# 显示功能模式的 CUDA 版本
+leetgpu cuda-version --mode functional
+```
+
+#### 列出可用 GPU
+
+```bash
+# 显示所有可用的 GPU 型号
+leetgpu list-gpus
+```
+
+#### 版本和升级
+
+```bash
+# 检查版本
+leetgpu --version
+
+# 升级到最新版本
+leetgpu upgrade
+```
+
+### 模式说明
+
+- **Functional Mode**：默认模式，快速验证 CUDA 代码的功能正确性
+- **Cycle-Accurate Mode**：周期精确模拟，用于性能分析，需要指定 GPU 型号
+
+### 工作流程
+
+1. 编写 CUDA 代码（`.cu` 文件）
+2. 使用 CLI 执行：`leetgpu run your_kernel.cu`
+3. 查看执行结果和性能指标
+4. 根据需要调整代码，重复测试
+
+---
+
 ## 题目 1: Softmax
 
 > 题目链接：[LeetGPU - Softmax](https://leetgpu.com/challenges/softmax)
