@@ -24,9 +24,88 @@ comment: true
 ## 目录
 
 - [题目列表](#题目列表)
+- [LeetGPU CLI 使用指南](#leetgpu-cli-使用指南)
 - [题目 1: Softmax](#题目-1-softmax)
 - [题目 2: 待添加](#题目-2-待添加)
 - [通用优化技巧总结](#通用优化技巧总结)
+
+---
+
+## LeetGPU CLI 使用指南
+
+> 官方文档：[LeetGPU CLI](https://leetgpu.com/cli)
+
+LeetGPU 提供了 CLI 工具用于本地测试和验证 CUDA 程序的正确性，无需反复上传到网站。
+
+### 安装
+
+```bash
+# 使用 npm 安装
+npm install -g leetgpu-cli
+```
+
+### 基本用法
+
+```bash
+# 查看所有可用命令
+leetgpu --help
+
+# 测试本地解决方案
+leetgpu test <problem_name> <solution_file>
+
+# 示例：测试 Softmax 题目
+leetgpu test softmax solution.cu
+
+# 查看题目列表
+leetgpu list
+
+# 获取题目模板
+leetgpu init <problem_name>
+```
+
+### 工作流程
+
+1. **初始化题目**：
+   ```bash
+   leetgpu init softmax
+   ```
+
+2. **编写解决方案**（在 `solution.cu` 中实现 `solve()` 函数）
+
+3. **本地测试**：
+   ```bash
+   leetgpu test softmax solution.cu
+   ```
+
+4. **查看结果**：
+   - ✓ 通过：输出性能指标
+   - ✗ 失败：显示错误信息和测试用例
+
+### 支持的题目
+
+- `softmax` - Softmax 算子实现
+- 其他题目持续更新中
+
+### 本地验证示例
+
+```bash
+# 完整示例
+$ leetgpu test softmax softmax/solution.cu
+
+Testing Softmax...
+  Test case 1: PASS (0.0123ms)
+  Test case 2: PASS (0.0234ms)
+  Test case 3: PASS (0.0189ms)
+
+All tests passed! ✓
+Performance: 85.6 TFLOPS
+```
+
+### 优势
+
+- **快速迭代**：无需上传即可验证代码
+- **详细反馈**：显示具体错误和性能数据
+- **本地环境**：支持自定义编译选项和调试
 
 ---
 
